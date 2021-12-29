@@ -40,7 +40,9 @@ Usage
 
     from tinynetrc import Netrc
 
-    netrc = Netrc()  # parse ~/.netrc
+    # Parse the file from the default directory ~/.netrc
+    # If you pass `create=True`, the file is created if it does not exist.
+    netrc = Netrc(create=True)
     # Get credentials
     netrc['api.heroku.com']['login']
     netrc['api.heroku.com']['password']
@@ -67,7 +69,7 @@ You can also use ``Netrc`` as a context manager, which will automatically save
 .. code-block:: python
 
     from tinynetrc import Netrc
-    with Netrc() as netrc:
+    with Netrc('/home/myuser/credentials/.netrc') as netrc:
         netrc['api.heroku.com']['password'] = 'newpassword'
         assert netrc.is_dirty is True
     # saved!
